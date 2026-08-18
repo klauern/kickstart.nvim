@@ -79,6 +79,26 @@ M.groups = {
   },
 }
 
+M.group_order = {
+  'eager',
+  'ai',
+  'completion',
+  'debug',
+  'indent',
+  'todo',
+  'autopairs',
+  'format',
+  'git',
+  'lint',
+  'lsp',
+  'lazydev',
+  'flash',
+  'neotree',
+  'oil',
+  'trouble',
+  'telescope',
+}
+
 function M.add(group)
   local specs = assert(M.groups[group], 'unknown plugin group: ' .. group)
   vim.pack.add(specs)
@@ -87,7 +107,8 @@ end
 function M.all()
   local specs = {}
   local seen = {}
-  for _, group in pairs(M.groups) do
+  for _, name in ipairs(M.group_order) do
+    local group = assert(M.groups[name], 'unknown plugin group: ' .. name)
     for _, spec in ipairs(group) do
       local src = type(spec) == 'table' and spec.src or spec
       if not seen[src] then
@@ -100,10 +121,11 @@ function M.all()
 end
 
 function M.update(opts)
+  opts = opts or {}
   -- Register every plugin without loading it so rarely used plugins are also
   -- installed, locked, and included in vim.pack.update(). Restart afterwards.
-  vim.pack.add(M.all(), { confirm = false, load = false })
-  vim.pack.update(nil, opts or {})
+  vim.pack.add(M.all(), { confirm = not opts.force, load = false })
+  vim.pack.update(nil, opts)
 end
 
 return M

@@ -99,9 +99,10 @@ nvim
 ```
 
 Native `vim.pack` installs eager plugins at startup and installs lazy plugins when
-their features are first used. Run `:PackUpdate` to review updates for every declared
-plugin, including unused lazy plugins, or `:PackUpdate!` to apply without confirmation.
-Restart Neovim after updating.
+their features are first used. Run `:PackUpdate` to confirm any missing plugin installs
+and then review updates for every declared plugin, including unused lazy plugins. Use
+`:PackUpdate!` to install and update everything without confirmation. Restart Neovim
+after updating.
 
 #### Read The Friendly Documentation
 
