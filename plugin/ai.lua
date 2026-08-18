@@ -6,9 +6,9 @@ local function load_codecompanion()
   end
   codecompanion_loaded = true
 
-  vim.pack.add({ { src = 'https://github.com/olimorris/codecompanion.nvim' } })
+  require('kickstart.plugins').add 'ai'
 
-  require('codecompanion').setup({
+  require('codecompanion').setup {
     strategies = {
       chat = { adapter = 'gateway' },
       inline = { adapter = 'gateway' },
@@ -32,20 +32,20 @@ local function load_codecompanion()
         end,
       },
     },
-  })
+  }
 end
 
 vim.keymap.set({ 'n', 'v' }, '<leader>ac', function()
   load_codecompanion()
-  vim.cmd('CodeCompanionChat Toggle')
+  vim.cmd 'CodeCompanionChat Toggle'
 end, { noremap = true, desc = 'AI Chat toggle' })
 
 vim.keymap.set({ 'n', 'v' }, '<leader>aa', function()
   load_codecompanion()
-  vim.cmd('CodeCompanionActions')
+  vim.cmd 'CodeCompanionActions'
 end, { noremap = true, desc = 'AI Actions' })
 
 vim.keymap.set('v', '<leader>ai', function()
   load_codecompanion()
-  vim.cmd('CodeCompanion')
+  vim.cmd 'CodeCompanion'
 end, { noremap = true, desc = 'AI Inline (selection)' })

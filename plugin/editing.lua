@@ -62,7 +62,7 @@ end
 vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
   once = true,
   callback = function()
-    vim.pack.add({ 'https://github.com/lukas-reineke/indent-blankline.nvim' })
+    require('kickstart.plugins').add 'indent'
     require('ibl').setup {}
   end,
 })
@@ -71,7 +71,7 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
 vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
   once = true,
   callback = function()
-    vim.pack.add({ 'https://github.com/folke/todo-comments.nvim' })
+    require('kickstart.plugins').add 'todo'
     require('todo-comments').setup { signs = false }
   end,
 })
@@ -80,7 +80,7 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
 vim.api.nvim_create_autocmd('InsertEnter', {
   once = true,
   callback = function()
-    vim.pack.add({ 'https://github.com/windwp/nvim-autopairs' })
+    require('kickstart.plugins').add 'autopairs'
     require('nvim-autopairs').setup {}
     local cmp_ok, cmp = pcall(require, 'cmp')
     if cmp_ok then

@@ -1,7 +1,7 @@
 vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
   once = true,
   callback = function()
-    vim.pack.add({ { src = 'https://github.com/mfussenegger/nvim-lint' } })
+    require('kickstart.plugins').add 'lint'
 
     local lint = require 'lint'
     lint.linters_by_ft = {

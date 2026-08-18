@@ -1,7 +1,7 @@
 vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile' }, {
   once = true,
   callback = function()
-    vim.pack.add({ { src = 'https://github.com/lewis6991/gitsigns.nvim' } })
+    require('kickstart.plugins').add 'git'
 
     require('gitsigns').setup {
       signs = {

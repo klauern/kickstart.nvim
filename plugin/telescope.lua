@@ -6,11 +6,7 @@ local function load_telescope()
   end
   loaded = true
 
-  vim.pack.add({
-    { src = 'https://github.com/nvim-telescope/telescope.nvim', version = '0.1.x' },
-    'https://github.com/nvim-telescope/telescope-fzf-native.nvim',
-    'https://github.com/nvim-telescope/telescope-ui-select.nvim',
-  })
+  require('kickstart.plugins').add 'telescope'
 
   require('telescope').setup {
     extensions = {

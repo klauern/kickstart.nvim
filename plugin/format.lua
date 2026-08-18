@@ -6,9 +6,9 @@ local function load_conform()
   end
   loaded = true
 
-  vim.pack.add({ { src = 'https://github.com/stevearc/conform.nvim' } })
+  require('kickstart.plugins').add 'format'
 
-  require('conform').setup({
+  require('conform').setup {
     notify_on_error = false,
     format_on_save = function(bufnr)
       local disable_filetypes = { c = true, cpp = true }
@@ -35,7 +35,7 @@ local function load_conform()
       typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
       json = { 'prettierd', 'prettier', stop_after_first = true },
     },
-  })
+  }
 end
 
 vim.api.nvim_create_autocmd('BufWritePre', {
@@ -47,10 +47,10 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 
 vim.keymap.set('', '<leader>f', function()
   load_conform()
-  require('conform').format({ async = true, lsp_format = 'fallback' })
+  require('conform').format { async = true, lsp_format = 'fallback' }
 end, { desc = '[F]ormat buffer' })
 
 vim.api.nvim_create_user_command('ConformInfo', function()
   load_conform()
-  vim.cmd('ConformInfo')
+  vim.cmd 'ConformInfo'
 end, {})

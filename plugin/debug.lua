@@ -6,14 +6,7 @@ local function load_dap()
   end
   dap_loaded = true
 
-  vim.pack.add {
-    'https://github.com/mfussenegger/nvim-dap',
-    'https://github.com/rcarriga/nvim-dap-ui',
-    'https://github.com/nvim-neotest/nvim-nio',
-    'https://github.com/williamboman/mason.nvim',
-    'https://github.com/jay-babu/mason-nvim-dap.nvim',
-    'https://github.com/leoluz/nvim-dap-go',
-  }
+  require('kickstart.plugins').add 'debug'
 
   local dap = require 'dap'
   local dapui = require 'dapui'

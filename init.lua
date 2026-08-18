@@ -78,27 +78,26 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 vim.loader.enable()
 
 -- [[ Eager plugins — must load before plugin/ files ]]
-vim.pack.add({
-  'https://github.com/tpope/vim-sleuth',
-  'https://github.com/NoahTheDuke/vim-just',
-  { src = 'https://github.com/folke/tokyonight.nvim' },
-  { src = 'https://github.com/folke/which-key.nvim' },
-  { src = 'https://github.com/echasnovski/mini.nvim' },
-  { src = 'https://github.com/nvim-tree/nvim-web-devicons' },
-  { src = 'https://github.com/nvim-lua/plenary.nvim' },
-})
+require('kickstart.plugins').add 'eager'
 
 -- [[ Build hooks for all plugins ]]
 vim.api.nvim_create_autocmd('PackChanged', {
   callback = function(ev)
     local name = ev.data.spec.name
-    local path = vim.fn.stdpath('data') .. '/pack/core/opt/' .. name
+    local path = vim.fn.stdpath 'data' .. '/pack/core/opt/' .. name
     if name == 'telescope-fzf-native.nvim' then
-      vim.fn.system({ 'make', '-C', path })
-    elseif name == 'LuaSnip' and vim.fn.executable('make') == 1 then
-      vim.fn.system({ 'make', 'install_jsregexp', '-C', path })
+      vim.fn.system { 'make', '-C', path }
+    elseif name == 'LuaSnip' and vim.fn.executable 'make' == 1 then
+      vim.fn.system { 'make', 'install_jsregexp', '-C', path }
     end
   end,
+})
+
+vim.api.nvim_create_user_command('PackUpdate', function(opts)
+  require('kickstart.plugins').update { force = opts.bang }
+end, {
+  bang = true,
+  desc = 'Install and update all plugins (use ! to skip confirmation)',
 })
 
 -- vim: ts=2 sts=2 sw=2 et
